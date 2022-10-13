@@ -25,14 +25,14 @@ namespace BiblioWeb.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Socio>>> GetSocio()
         {
-            return await _context.Socio.ToListAsync();
+            return await _context.Socios.ToListAsync();
         }
 
         // GET: api/apiSocios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Socio>> GetSocio(int id)
         {
-            var socio = await _context.Socio.FindAsync(id);
+            var socio = await _context.Socios.FindAsync(id);
 
             if (socio == null)
             {
@@ -80,7 +80,7 @@ namespace BiblioWeb.Controllers
         [HttpPost]
         public async Task<ActionResult<Socio>> PostSocio(Socio socio)
         {
-            _context.Socio.Add(socio);
+            _context.Socios.Add(socio);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSocio", new { id = socio.Id }, socio);
@@ -90,13 +90,13 @@ namespace BiblioWeb.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Socio>> DeleteSocio(int id)
         {
-            var socio = await _context.Socio.FindAsync(id);
+            var socio = await _context.Socios.FindAsync(id);
             if (socio == null)
             {
                 return NotFound();
             }
 
-            _context.Socio.Remove(socio);
+            _context.Socios.Remove(socio);
             await _context.SaveChangesAsync();
 
             return socio;
@@ -104,7 +104,7 @@ namespace BiblioWeb.Controllers
 
         private bool SocioExists(int id)
         {
-            return _context.Socio.Any(e => e.Id == id);
+            return _context.Socios.Any(e => e.Id == id);
         }
     }
 }

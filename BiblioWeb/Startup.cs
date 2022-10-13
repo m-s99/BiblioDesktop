@@ -27,8 +27,10 @@ namespace BiblioWeb
         {
             services.AddControllersWithViews();
 
+            //services.AddDbContext<BiblioWebContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("BiblioWebContext")));
             services.AddDbContext<BiblioWebContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("BiblioWebContext")));
+                    options.UseMySQL(Configuration.GetConnectionString("BiblioWebContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

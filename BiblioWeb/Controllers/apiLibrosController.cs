@@ -25,14 +25,14 @@ namespace BiblioWeb.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Libro>>> GetLibro()
         {
-            return await _context.Libro.ToListAsync();
+            return await _context.Libros.ToListAsync();
         }
 
         // GET: api/apiLibros/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Libro>> GetLibro(int id)
         {
-            var libro = await _context.Libro.FindAsync(id);
+            var libro = await _context.Libros.FindAsync(id);
 
             if (libro == null)
             {
@@ -80,7 +80,7 @@ namespace BiblioWeb.Controllers
         [HttpPost]
         public async Task<ActionResult<Libro>> PostLibro(Libro libro)
         {
-            _context.Libro.Add(libro);
+            _context.Libros.Add(libro);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLibro", new { id = libro.Id }, libro);
@@ -90,13 +90,13 @@ namespace BiblioWeb.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Libro>> DeleteLibro(int id)
         {
-            var libro = await _context.Libro.FindAsync(id);
+            var libro = await _context.Libros.FindAsync(id);
             if (libro == null)
             {
                 return NotFound();
             }
 
-            _context.Libro.Remove(libro);
+            _context.Libros.Remove(libro);
             await _context.SaveChangesAsync();
 
             return libro;
@@ -104,7 +104,7 @@ namespace BiblioWeb.Controllers
 
         private bool LibroExists(int id)
         {
-            return _context.Libro.Any(e => e.Id == id);
+            return _context.Libros.Any(e => e.Id == id);
         }
     }
 }

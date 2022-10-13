@@ -14,6 +14,6 @@ namespace BiblioWeb.Data
         {
         }
 
-        public DbSet<BiblioWeb.Models.Libro> Libro { get; set; }
+        public DbSet<BiblioWeb.Models.Libro> Libros { get; set; }
     }
 }

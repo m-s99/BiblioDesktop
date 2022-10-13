@@ -17,5 +17,9 @@ namespace BiblioWeb.Data
         public DbSet<BiblioWeb.Models.Libro> Libros { get; set; }
 
         public DbSet<BiblioWeb.Models.Socio> Socios { get; set; }
+
+        public DbSet<BiblioWeb.Models.Prestamo> Prestamos { get; set; }
+
+        public DbSet<BiblioWeb.Models.Tematica> Tematicas { get; set; }
     }
 }

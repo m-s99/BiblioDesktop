@@ -22,7 +22,7 @@ namespace BiblioWeb.Controllers
         // GET: Socios
         public async Task<IActionResult> Index()
         {
-            var biblioWebContext = _context.Socios.Include(s => s.Usuario);
+            var biblioWebContext = _context.Socios;
             return View(await biblioWebContext.ToListAsync());
         }
 

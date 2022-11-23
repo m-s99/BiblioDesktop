@@ -21,5 +21,6 @@ namespace BiblioWeb.Data
         public DbSet<BiblioWeb.Models.Prestamo> Prestamos { get; set; }
 
         public DbSet<BiblioWeb.Models.Tematica> Tematicas { get; set; }
+        public DbSet<BiblioWeb.Models.Usuario> Usuarios { get; set; }
     }
 }

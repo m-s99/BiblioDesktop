@@ -10,23 +10,22 @@ using BiblioWeb.Models;
 
 namespace BiblioWeb.Controllers
 {
-    public class SociosController : Controller
+    public class UsuariosController : Controller
     {
         private readonly BiblioWebContext _context;
 
-        public SociosController(BiblioWebContext context)
+        public UsuariosController(BiblioWebContext context)
         {
             _context = context;
         }
 
-        // GET: Socios
+        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            var biblioWebContext = _context.Socios.Include(s => s.Usuario);
-            return View(await biblioWebContext.ToListAsync());
+            return View(await _context.Usuarios.ToListAsync());
         }
 
-        // GET: Socios/Details/5
+        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,39 @@ namespace BiblioWeb.Controllers
                 return NotFound();
             }
 
-            var socio = await _context.Socios
-                .Include(s => s.Usuario)
+            var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (socio == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(socio);
+            return View(usuario);
         }
 
-        // GET: Socios/Create
+        // GET: Usuarios/Create
         public IActionResult Create()
         {
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Nombre");
             return View();
         }
 
-        // POST: Socios/Create
+        // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Apellido,Nombre,Dni,FechaNacimiento,Domicilio,Telefono,Imagen,UsuarioId,FechaHoraEliminacion,Eliminado")] Socio socio)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,User,Password,TipoUsuario,UsuarioId,FechaHoraEliminacion,Eliminado")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(socio);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Nombre", socio.UsuarioId);
-            return View(socio);
+            return View(usuario);
         }
 
-        // GET: Socios/Edit/5
+        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +73,22 @@ namespace BiblioWeb.Controllers
                 return NotFound();
             }
 
-            var socio = await _context.Socios.FindAsync(id);
-            if (socio == null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Nombre", socio.UsuarioId);
-            return View(socio);
+            return View(usuario);
         }
 
-        // POST: Socios/Edit/5
+        // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Apellido,Nombre,Dni,FechaNacimiento,Domicilio,Telefono,Imagen,UsuarioId,FechaHoraEliminacion,Eliminado")] Socio socio)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,User,Password,TipoUsuario,UsuarioId,FechaHoraEliminacion,Eliminado")] Usuario usuario)
         {
-            if (id != socio.Id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace BiblioWeb.Controllers
             {
                 try
                 {
-                    _context.Update(socio);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SocioExists(socio.Id))
+                    if (!UsuarioExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +113,10 @@ namespace BiblioWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Nombre", socio.UsuarioId);
-            return View(socio);
+            return View(usuario);
         }
 
-        // GET: Socios/Delete/5
+        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +124,30 @@ namespace BiblioWeb.Controllers
                 return NotFound();
             }
 
-            var socio = await _context.Socios
-                .Include(s => s.Usuario)
+            var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (socio == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(socio);
+            return View(usuario);
         }
 
-        // POST: Socios/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var socio = await _context.Socios.FindAsync(id);
-            _context.Socios.Remove(socio);
+            var usuario = await _context.Usuarios.FindAsync(id);
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SocioExists(int id)
+        private bool UsuarioExists(int id)
         {
-            return _context.Socios.Any(e => e.Id == id);
+            return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }

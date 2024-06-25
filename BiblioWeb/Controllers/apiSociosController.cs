@@ -12,48 +12,48 @@ namespace BiblioWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class apiLibrosController : ControllerBase
+    public class apiSociosController : ControllerBase
     {
         private readonly BiblioWebContext _context;
 
-        public apiLibrosController(BiblioWebContext context)
+        public apiSociosController(BiblioWebContext context)
         {
             _context = context;
         }
 
-        // GET: api/apiLibros
+        // GET: api/apiSocios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Libro>>> GetLibro()
+        public async Task<ActionResult<IEnumerable<Socio>>> GetSocio()
         {
-            return await _context.Libros.ToListAsync();
+            return await _context.Socios.ToListAsync();
         }
 
-        // GET: api/apiLibros/5
+        // GET: api/apiSocios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Libro>> GetLibro(int id)
+        public async Task<ActionResult<Socio>> GetSocio(int id)
         {
-            var libro = await _context.Libros.FindAsync(id);
+            var socio = await _context.Socios.FindAsync(id);
 
-            if (libro == null)
+            if (socio == null)
             {
                 return NotFound();
             }
 
-            return libro;
+            return socio;
         }
 
-        // PUT: api/apiLibros/5
+        // PUT: api/apiSocios/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLibro(int id, Libro libro)
+        public async Task<IActionResult> PutSocio(int id, Socio socio)
         {
-            if (id != libro.Id)
+            if (id != socio.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(libro).State = EntityState.Modified;
+            _context.Entry(socio).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace BiblioWeb.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LibroExists(id))
+                if (!SocioExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace BiblioWeb.Controllers
             return NoContent();
         }
 
-        // POST: api/apiLibros
+        // POST: api/apiSocios
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Libro>> PostLibro(Libro libro)
+        public async Task<ActionResult<Socio>> PostSocio(Socio socio)
         {
-            _context.Libros.Add(libro);
+            _context.Socios.Add(socio);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLibro", new { id = libro.Id }, libro);
+            return CreatedAtAction("GetSocio", new { id = socio.Id }, socio);
         }
 
-        // DELETE: api/apiLibros/5
+        // DELETE: api/apiSocios/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Libro>> DeleteLibro(int id)
+        public async Task<ActionResult<Socio>> DeleteSocio(int id)
         {
-            var libro = await _context.Libros.FindAsync(id);
-            if (libro == null)
+            var socio = await _context.Socios.FindAsync(id);
+            if (socio == null)
             {
                 return NotFound();
             }
 
-            _context.Libros.Remove(libro);
+            _context.Socios.Remove(socio);
             await _context.SaveChangesAsync();
 
-            return libro;
+            return socio;
         }
 
-        private bool LibroExists(int id)
+        private bool SocioExists(int id)
         {
-            return _context.Libros.Any(e => e.Id == id);
+            return _context.Socios.Any(e => e.Id == id);
         }
     }
 }

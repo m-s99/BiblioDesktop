@@ -12,48 +12,48 @@ namespace BiblioWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class apiLibrosController : ControllerBase
+    public class apiPrestamosController : ControllerBase
     {
         private readonly BiblioWebContext _context;
 
-        public apiLibrosController(BiblioWebContext context)
+        public apiPrestamosController(BiblioWebContext context)
         {
             _context = context;
         }
 
-        // GET: api/apiLibros
+        // GET: api/apiPrestamos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Libro>>> GetLibro()
+        public async Task<ActionResult<IEnumerable<Prestamo>>> GetPrestamo()
         {
-            return await _context.Libros.ToListAsync();
+            return await _context.Prestamos.ToListAsync();
         }
 
-        // GET: api/apiLibros/5
+        // GET: api/apiPrestamos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Libro>> GetLibro(int id)
+        public async Task<ActionResult<Prestamo>> GetPrestamo(int id)
         {
-            var libro = await _context.Libros.FindAsync(id);
+            var prestamo = await _context.Prestamos.FindAsync(id);
 
-            if (libro == null)
+            if (prestamo == null)
             {
                 return NotFound();
             }
 
-            return libro;
+            return prestamo;
         }
 
-        // PUT: api/apiLibros/5
+        // PUT: api/apiPrestamos/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLibro(int id, Libro libro)
+        public async Task<IActionResult> PutPrestamo(int id, Prestamo prestamo)
         {
-            if (id != libro.Id)
+            if (id != prestamo.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(libro).State = EntityState.Modified;
+            _context.Entry(prestamo).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace BiblioWeb.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LibroExists(id))
+                if (!PrestamoExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace BiblioWeb.Controllers
             return NoContent();
         }
 
-        // POST: api/apiLibros
+        // POST: api/apiPrestamos
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Libro>> PostLibro(Libro libro)
+        public async Task<ActionResult<Prestamo>> PostPrestamo(Prestamo prestamo)
         {
-            _context.Libros.Add(libro);
+            _context.Prestamos.Add(prestamo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLibro", new { id = libro.Id }, libro);
+            return CreatedAtAction("GetPrestamo", new { id = prestamo.Id }, prestamo);
         }
 
-        // DELETE: api/apiLibros/5
+        // DELETE: api/apiPrestamos/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Libro>> DeleteLibro(int id)
+        public async Task<ActionResult<Prestamo>> DeletePrestamo(int id)
         {
-            var libro = await _context.Libros.FindAsync(id);
-            if (libro == null)
+            var prestamo = await _context.Prestamos.FindAsync(id);
+            if (prestamo == null)
             {
                 return NotFound();
             }
 
-            _context.Libros.Remove(libro);
+            _context.Prestamos.Remove(prestamo);
             await _context.SaveChangesAsync();
 
-            return libro;
+            return prestamo;
         }
 
-        private bool LibroExists(int id)
+        private bool PrestamoExists(int id)
         {
-            return _context.Libros.Any(e => e.Id == id);
+            return _context.Prestamos.Any(e => e.Id == id);
         }
     }
 }
